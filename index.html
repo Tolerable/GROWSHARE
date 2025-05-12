@@ -26,13 +26,15 @@
             color: var(--text-color);
             line-height: 1.6;
             background-color: var(--light-bg);
+			padding-top: 60px;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 20px;
+			width: 100%;
+		}
         
         header {
             background-color: var(--primary-color);
@@ -95,7 +97,8 @@
             align-items: center;
             text-align: center;
             color: var(--white);
-            margin-top: 4rem;
+			min-height: 80vh;
+            margin-top: 0;
         }
         
         .hero-content {
@@ -144,7 +147,9 @@
         }
         
 		section {
-			display: none; /* Hide all sections by default */
+			display: block; /* Show all sections */
+			padding: 4rem 0; /* Increase vertical spacing */
+			margin-bottom: 2rem; /* Add more space between sections */
 		}
 
 		section.active {
@@ -177,6 +182,20 @@
             bottom: -10px;
             left: 25%;
         }
+
+		section:nth-child(odd) {
+			background-color: var(--light-bg);
+		}
+
+		section:nth-child(even) {
+			background-color: var(--white);
+		}
+
+		/* Make headings more prominent */
+		.section-title h2 {
+			font-size: 2.8rem;
+			margin-bottom: 2rem;
+		}
         
         .about {
             background-color: var(--white);
@@ -701,6 +720,10 @@
             margin-bottom: 0.5rem;
             color: var(--primary-color);
         }
+
+		.about-content, .features-grid, .steps, .team-grid {
+			margin-top: 3rem;
+		}
         
         /* Media Queries */
         @media (max-width: 768px) {
@@ -758,6 +781,14 @@
                 width: 95%;
                 margin: 5% auto;
             }
+
+			section {
+				padding: 3rem 0;
+			}
+			
+			.hero {
+				min-height: 60vh;
+			}						
         }
     </style>
 </head>
@@ -1367,23 +1398,17 @@
             e.target.reset();
         });
 		
-		// Section navigation
+		// Replace your current JavaScript navigation code with this:
 		document.addEventListener('DOMContentLoaded', function() {
-			// Get all sections except hero
-			const sections = document.querySelectorAll('section:not(.hero)');
+			// Get all sections
+			const sections = document.querySelectorAll('section');
 			
-			// Hide all sections initially
+			// Show all sections by default (remove the hiding)
 			sections.forEach(section => {
-				section.style.display = 'none';
+				section.style.display = 'block';
 			});
 			
-			// Show the about section by default (first after hero)
-			const aboutSection = document.getElementById('about');
-			if (aboutSection) {
-				aboutSection.style.display = 'block';
-			}
-			
-			// Add click event to navigation links
+			// Add click event to navigation links for smooth scrolling only
 			const navLinks = document.querySelectorAll('nav ul li a');
 			navLinks.forEach(link => {
 				link.addEventListener('click', function(e) {
@@ -1393,17 +1418,9 @@
 					const targetId = this.getAttribute('href');
 					if (targetId === '#') return;
 					
-					// Hide all sections
-					sections.forEach(section => {
-						section.style.display = 'none';
-					});
-					
-					// Show the target section
+					// Scroll to section
 					const targetSection = document.querySelector(targetId);
 					if (targetSection) {
-						targetSection.style.display = 'block';
-						
-						// Scroll to section
 						window.scrollTo({
 							top: targetSection.offsetTop - 60,
 							behavior: 'smooth'
@@ -1416,7 +1433,7 @@
 					}
 				});
 			});
-		});		
+		});	
     </script>
 </body>
 </html>					
