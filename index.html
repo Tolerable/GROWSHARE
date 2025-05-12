@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GrowShare - Community Food Growth Initiative</title>
+    <style>
+        :root {
+            --primary-color: #2e7d32;
+            --secondary-color: #4caf50;
+            --accent-color: #8bc34a;
+            --text-color: #333;
+            --light-bg: #f5f5f5;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: var(--light-bg);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--accent-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/api/placeholder/1200/600') center/cover no-repeat;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            margin-top: 4rem;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--white);
+            margin-left: 1rem;
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--white);
+            color: var(--primary-color);
+        }
+        
+        section {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background-color: var(--accent-color);
+            bottom: -10px;
+            left: 25%;
+        }
+        
+        .about {
+            background-color: var(--white);
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .features {
+            background-color: var(--light-bg);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .how-it-works {
+            background-color: var(--white);
+        }
+        
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .step-number {
+            background-color: var(--primary-color);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+        
+        .step h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .testimonials {
+            background-color: var(--light-bg);
+        }
+        
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .testimonial {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            display: none;
+        }
+        
+        .testimonial.active {
+            display: block;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        
+        .testimonial-author {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .testimonial-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            background-color: #ccc;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-dot.active {
+            background-color: var(--primary-color);
+        }
+        
+        .cta {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/400') center/cover no-repeat;
+            color: var(--white);
+            text-align: center;
+        }
+        
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta p {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        
+        .team {
+            background-color: var(--white);
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .team-member {
+            text-align: center;
+        }
+        
+        .team-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 1rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .team-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .team-member h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-member p {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .contact {
+            background-color: var(--light-bg);
+        }
+        
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .contact-form {
+            flex: 2;
+            min-width: 300px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-icon {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        textarea.form-control {
+            resize: vertical;
+            min-height: 150px;
+        }
+        
+        footer {
+            background-color: #333;
+            color: var(--white);
+            padding: 3rem 0 1rem;
+        }
+        
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .footer-col {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-col h3 {
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 2px;
+            background-color: var(--accent-color);
+            bottom: -5px;
+            left: 0;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-col ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-col ul li a:hover {
+            color: var(--accent-color);
+        }
+        
+        .newsletter-form {
+            display: flex;
+            margin-top: 1rem;
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px 0 0 5px;
+        }
+        
+        .newsletter-btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 0 5px 5px 0;
+            padding: 0 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .newsletter-btn:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #444;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-content {
+            background-color: var(--white);
+            margin: 10% auto;
+            padding: 2rem;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .donate-options {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .donate-option {
+            background-color: var(--light-bg);
+            padding: 1rem;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .donate-option:hover, .donate-option.selected {
+            background-color: var(--accent-color);
+            color: var(--white);
+        }
+        
+        .donation-amount {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .amount-option {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .amount-option:hover, .amount-option.selected {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+        
+        .custom-amount {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .custom-amount input {
+            width: 100px;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .modal-footer {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .proposal-section {
+            background-color: var(--white);
+            padding: 3rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .proposal-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .proposal-content {
+            margin-bottom: 2rem;
+        }
+        
+        .budget-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+        
+        .budget-table th, .budget-table td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .budget-table th {
+            background-color: var(--light-bg);
+            font-weight: bold;
+        }
+        
+        .timeline {
+            margin: 2rem 0;
+        }
+        
+        .timeline-item {
+            display: flex;
+            margin-bottom: 1.5rem;
+        }
+        
+        .timeline-marker {
+            flex: 0 0 100px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 0.5rem;
+            border-radius: 5px;
+            text-align: center;
+            margin-right: 1rem;
+        }
+        
+        .timeline-content {
+            flex: 1;
+        }
+        
+        .timeline-content h4 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 0 1rem;
+            }
+            
+            nav {
+                position: fixed;
+                top: 4rem;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 4rem);
+                background-color: var(--primary-color);
+                transition: left 0.3s;
+                box-shadow: var(--shadow);
+            }
+            
+            nav.active {
+                left: 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                padding: 2rem;
+            }
+            
+            nav ul li {
+                margin: 1rem 0;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                display: block;
+                margin: 1rem 0;
+                width: 100%;
+            }
+            
+            .btn-outline {
+                margin-left: 0;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 5% auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container container">
+            <div class="logo">Grow<span>Share</span></div>
+            <div class="mobile-menu">☰</div>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#proposal">Proposal</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Growing Food, Growing Community</h1>
+            <p>GrowShare provides grow tents to families in need, empowering them to grow their own food and share with their community.</p>
+            <a href="#about" class="btn">Learn More</a>
+            <a href="#" class="btn btn-outline" id="donate-btn">Donate Now</a>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About GrowShare</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Our Mission</h3>
+                    <p>GrowShare is dedicated to addressing food insecurity by providing families with the tools and knowledge to grow their own fresh produce at home, regardless of space limitations or climate conditions.</p>
+                    <p>Through our grow tent packages, we enable year-round cultivation of nutritious vegetables, promoting self-sufficiency and encouraging community sharing of surplus harvests.</p>
+                    <h3>Our Vision</h3>
+                    <p>We envision communities where everyone has access to fresh, healthy food, where neighbors support each other through shared resources, and where sustainable growing practices become a standard part of everyday life.</p>
+                </div>
+                <div class="about-image">
+                    <img src="/api/placeholder/600/400" alt="Family with grow tent">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>What We Offer</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🌱</div>
+                    <h3>Complete Grow Tent Kits</h3>
+                    <p>Our all-in-one packages include energy-efficient LED lighting, hydroponic systems, and climate control for optimal growing conditions year-round.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3>Education & Support</h3>
+                    <p>We provide comprehensive training and ongoing support to ensure families succeed in growing their own food, even with no prior experience.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Community Connection</h3>
+                    <p>Our platform connects growers with local community members, facilitating the sharing of surplus produce and building stronger neighborhoods.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How It Works</h2>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Application</h3>
+                    <p>Families in need apply for a grow tent package, indicating their housing situation, food needs, and commitment to the program.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Distribution</h3>
+                    <p>Selected families receive a complete grow tent kit, seeds, and initial supplies to begin growing immediately.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Education</h3>
+                    <p>We provide hands-on training and continuous support to ensure successful growing cycles.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Community Sharing</h3>
+                    <p>Participating families are encouraged to share surplus harvests with neighbors, building stronger community bonds.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Success Stories</h2>
+            </div>
+            <div class="testimonial-slider">
+                <div class="testimonial active">
+                    <p class="testimonial-text">"The grow tent has been life-changing for our family. We now have fresh vegetables year-round, and I've been able to share with my elderly neighbors who can't get to the store easily."</p>
+                    <p class="testimonial-author">Maria J., Program Participant</p>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-text">"As a single parent, grocery bills were always a struggle. With the GrowShare tent, I'm growing enough lettuce, tomatoes, and herbs to significantly reduce our food expenses."</p>
+                    <p class="testimonial-author">David T., Program Participant</p>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-text">"The sense of accomplishment my children feel when harvesting vegetables they've grown themselves is priceless. They're learning valuable skills while eating healthier."</p>
+                    <p class="testimonial-author">Sarah L., Program Participant</p>
+                </div>
+                <div class="testimonial-nav">
+                    <div class="nav-dot active" data-index="0"></div>
+                    <div class="nav-dot" data-index="1"></div>
+                    <div class="nav-dot" data-index="2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Help Us Grow Communities</h2>
+                <p>Your support can help us provide more families with the means to grow their own food and strengthen community bonds through sharing and sustainability.</p>
+                <a href="#" class="btn" id="sponsor-btn">Become a Sponsor</a>
+                <a href="#" class="btn btn-outline" id="volunteer-btn">Volunteer</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="team" id="team">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Team</h2>
+            </div>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="team-photo">
+                        <img src="/api/placeholder/150/150" alt="Team Member">
+                    </div>
+                    <h3>Alex Johnson</h3>
+                    <p>Founder & Director</p>
+                    <div class="social-links">
+                        <a href="#"><i>📱</i></a>
+                        <a href="#"><i>📧</i></a>
+                        <a href="#"><i>🔗</i></a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="team-photo">
+                        <img src="/api/placeholder/150/150" alt="Team Member">
+                    </div>
+                    <h3>Maya Patel</h3>
+                    <p>Agricultural Specialist</p>
+                    <div class="social-links">
+                        <a href="#"><i>📱</i></a>
+                        <a href="#"><i>📧</i></a>
+                        <a href="#"><i>🔗</i></a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="team-photo">
+                        <img src="/api/placeholder/150/150" alt="Team Member">
+                    </div>
+                    <h3>Carlos Rodriguez</h3>
+                    <p>Community Outreach</p>
+                    <div class="social-links">
+                        <a href="#"><i>📱</i></a>
+                        <a href="#"><i>📧</i></a>
+                        <a href="#"><i>🔗</i></a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="team-photo">
+                        <img src="/api/placeholder/150/150" alt="Team Member">
+                    </div>
+                    <h3>Sam Thompson</h3>
+                    <p>Technology & Support</p>
+                    <div class="social-links">
+                        <a href="#"><i>📱</i></a>
+                        <a href="#"><i>📧</i></a>
+                        <a href="#"><i>🔗</i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Get In Touch</h2>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <h3>Address</h3>
+                            <p>123 Community Lane, Anytown, USA</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div>
+                            <h3>Phone</h3>
+                            <p>(555) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div>
+                            <h3>Email</h3>
+                            <p>info@growshare.org</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+						<div class="contact-icon">⏰</div>
+                        <div>
+                            <h3>Hours</h3>
+                            <p>Monday-Friday: 9am-5pm</p>
+                            <p>Saturday: 10am-2pm</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="proposal">
+        <div class="container">
+            <div class="section-title">
+                <h2>Project Proposal</h2>
+            </div>
+            <div class="proposal-section">
+                <h3>Executive Summary</h3>
+                <div class="proposal-content">
+                    <p>GrowShare seeks a $10,000 grant to launch a pilot program providing indoor grow tent systems to 5 families experiencing food insecurity. This initiative aims to create sustainable food sources for these families while establishing a model for community sharing and potential expansion. Additionally, we'll develop a content generation service to create supplemental revenue for program sustainability.</p>
+                </div>
+
+                <h3>Organization Structure</h3>
+                <div class="proposal-content">
+                    <p><strong>Recommended Structure:</strong> 501(c)(3) Non-Profit Organization</p>
+                    <p>We recommend establishing GrowShare as a 501(c)(3) non-profit organization rather than an LLC for the following reasons:</p>
+                    <ul>
+                        <li>Tax-exempt status allows all funds to directly support program operations</li>
+                        <li>Eligibility for a wider range of grants and philanthropic funding</li>
+                        <li>Enhanced credibility with government agencies, donors, and beneficiaries</li>
+                        <li>Ability to offer tax deductions to donors and sponsors</li>
+                        <li>Mission-focused governance structure that aligns with the community benefit purpose</li>
+                    </ul>
+                    <p>While the content generation service component will generate revenue, as a non-profit, these funds will be reinvested directly into expanding the grow tent program.</p>
+                </div>
+
+                <h3>Program Details</h3>
+                <div class="proposal-content">
+                    <h4>Grow Tent Initiative:</h4>
+                    <ul>
+                        <li><strong>Target Population:</strong> 5 families experiencing food insecurity in our initial phase</li>
+                        <li><strong>Selection Criteria:</strong> Food insecurity status, housing stability, commitment to program participation, willingness to share surplus with community</li>
+                        <li><strong>Equipment:</strong> Complete indoor grow systems including tent, LED lighting, climate control, hydroponic setup, nutrients, and initial seed stock</li>
+                        <li><strong>Support:</strong> Training sessions, ongoing technical assistance, and community connection facilitation</li>
+                        <li><strong>Community Sharing:</strong> Facilitated system for participants to share surplus with neighbors in need</li>
+                    </ul>
+
+                    <h4>Content Generation Service:</h4>
+                    <ul>
+                        <li><strong>Service Offering:</strong> Custom content creation for sustainable farming, gardening, and food-related businesses</li>
+                        <li><strong>Target Clients:</strong> Garden supply companies, seed providers, nutrition organizations, and community farms</li>
+                        <li><strong>Content Types:</strong> Blog posts, social media content, email newsletters, educational materials</li>
+                        <li><strong>Pricing Model:</strong> Subscription-based packages with different tiers based on content volume and complexity</li>
+                        <li><strong>Revenue Use:</strong> 100% of profits directed to expanding the grow tent program</li>
+                    </ul>
+                </div>
+
+                <h3>Budget Allocation ($10,000)</h3>
+                <table class="budget-table">
+                    <tr>
+                        <th>Item</th>
+                        <th>Cost</th>
+                        <th>Details</th>
+                    </tr>
+                    <tr>
+                        <td>Grow Tent Systems (5)</td>
+                        <td>$4,500</td>
+                        <td>Complete systems at $900 each including tent, lights, hydroponic equipment, climate control</td>
+                    </tr>
+                    <tr>
+                        <td>Supplies & Nutrients</td>
+                        <td>$1,000</td>
+                        <td>6-month supply of nutrients, seeds, growing medium, and replacement parts</td>
+                    </tr>
+                    <tr>
+                        <td>Training Materials</td>
+                        <td>$500</td>
+                        <td>Development of guides, video tutorials, and hands-on training sessions</td>
+                    </tr>
+                    <tr>
+                        <td>Website Development</td>
+                        <td>$1,500</td>
+                        <td>Professional enhancement of this proof-of-concept site, adding secure donation portal and content marketplace</td>
+                    </tr>
+                    <tr>
+                        <td>Marketing & Outreach</td>
+                        <td>$800</td>
+                        <td>Promotional materials, community outreach events, digital marketing</td>
+                    </tr>
+                    <tr>
+                        <td>Legal & Administrative</td>
+                        <td>$1,200</td>
+                        <td>501(c)(3) filing fees, legal consultation, insurance, permits</td>
+                    </tr>
+                    <tr>
+                        <td>Emergency Fund</td>
+                        <td>$500</td>
+                        <td>Reserved for unexpected expenses or equipment failure</td>
+                    </tr>
+                </table>
+
+                <h3>Implementation Timeline</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">Month 1</div>
+                        <div class="timeline-content">
+                            <h4>Foundation</h4>
+                            <p>Complete 501(c)(3) paperwork, finalize website, establish partnerships with local food banks and community organizations</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">Month 2</div>
+                        <div class="timeline-content">
+                            <h4>Selection & Procurement</h4>
+                            <p>Select 5 participating families through application process, purchase equipment, develop training materials</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">Month 3</div>
+                        <div class="timeline-content">
+                            <h4>Implementation</h4>
+                            <p>Install grow systems in homes, conduct initial training, begin content service marketing</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">Months 4-6</div>
+                        <div class="timeline-content">
+                            <h4>Growth & Support</h4>
+                            <p>Regular check-ins with families, troubleshooting support, first harvest cycle, launch content service with initial clients</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">Months 7-9</div>
+                        <div class="timeline-content">
+                            <h4>Community Sharing</h4>
+                            <p>Establish produce sharing system, document impact, expand content service client base</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">Months 10-12</div>
+                        <div class="timeline-content">
+                            <h4>Evaluation & Expansion</h4>
+                            <p>Assess program impact, seek additional funding for expansion, optimize content service offerings</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Expected Outcomes & Impact Measurement</h3>
+                <div class="proposal-content">
+                    <ul>
+                        <li>Increase in fresh vegetable consumption among participating families (measured through surveys)</li>
+                        <li>Reduction in food expenses for participants (tracked monthly)</li>
+                        <li>Pounds of produce shared with wider community (logged by participants)</li>
+                        <li>Revenue generated by content service (financial tracking)</li>
+                        <li>Qualitative improvements in nutritional knowledge and food security (interviews)</li>
+                        <li>Community building and social capital development (relationship mapping)</li>
+                    </ul>
+                </div>
+
+                <h3>Sustainability Plan</h3>
+                <div class="proposal-content">
+                    <p>GrowShare is designed for long-term sustainability through a hybrid funding model:</p>
+                    <ol>
+                        <li><strong>Content Generation Service:</strong> As our primary revenue stream, this service will grow to fund additional grow tent systems beyond the initial 5 families</li>
+                        <li><strong>Ongoing Grants:</strong> With demonstrated impact from our pilot, we'll apply for larger government and foundation grants</li>
+                        <li><strong>Sponsorships:</strong> Corporate sponsorships from agricultural, food, and sustainability-focused businesses</li>
+                        <li><strong>Individual Donations:</strong> Community-based support through recurring donation programs</li>
+                        <li><strong>Equipment Partnerships:</strong> Negotiating discounted or donated equipment from manufacturers aligned with our mission</li>
+                    </ol>
+                    <p>By year 2, we project the content service will generate sufficient revenue to fund 2-3 additional grow tent systems annually without requiring additional grant funding.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>GrowShare</h3>
+                    <p>Empowering families to grow food and build community through innovative indoor growing solutions.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#features">Our Services</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#team">Our Team</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Get Involved</h3>
+                    <ul>
+                        <li><a href="#">Donate</a></li>
+                        <li><a href="#">Volunteer</a></li>
+                        <li><a href="#">Sponsor</a></li>
+                        <li><a href="#">Apply for Program</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p>Stay updated with our latest news and events.</p>
+                    <div class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Enter your email">
+                        <button class="newsletter-btn">→</button>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 GrowShare. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Donation Modal -->
+    <div class="modal" id="donateModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Support Our Mission</h2>
+            <p>Your donation helps us provide grow tent systems to families in need. Choose how you'd like to contribute:</p>
+            
+            <div class="donate-options">
+                <div class="donate-option">One-time Donation</div>
+                <div class="donate-option">Monthly Sponsorship</div>
+                <div class="donate-option">Sponsor a Family ($900)</div>
+            </div>
+            
+            <div class="donation-amount">
+                <div class="amount-option">$25</div>
+                <div class="amount-option">$50</div>
+                <div class="amount-option">$100</div>
+                <div class="amount-option">$250</div>
+                <div class="custom-amount">
+                    <span>$</span>
+                    <input type="number" placeholder="Other">
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn">Proceed to Donation</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const nav = document.querySelector('nav');
+        
+        mobileMenu.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+        
+        // Smooth Scrolling for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                if (this.getAttribute('href') === '#') return;
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 60,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (nav.classList.contains('active')) {
+                        nav.classList.remove('active');
+                    }
+                }
+            });
+        });
+        
+        // Testimonial Slider
+        const testimonials = document.querySelectorAll('.testimonial');
+        const dots = document.querySelectorAll('.nav-dot');
+        
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const index = dot.getAttribute('data-index');
+                
+                testimonials.forEach(testimonial => testimonial.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                testimonials[index].classList.add('active');
+                dot.classList.add('active');
+            });
+        });
+        
+        // Auto-rotate testimonials
+        let currentTestimonial = 0;
+        
+        function rotateTestimonials() {
+            testimonials.forEach(testimonial => testimonial.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            
+            testimonials[currentTestimonial].classList.add('active');
+            dots[currentTestimonial].classList.add('active');
+        }
+        
+        setInterval(rotateTestimonials, 5000);
+        
+        // Donation Modal
+        const donateBtn = document.getElementById('donate-btn');
+        const sponsorBtn = document.getElementById('sponsor-btn');
+        const donateModal = document.getElementById('donateModal');
+        const closeModal = document.querySelector('.close-modal');
+        
+        donateBtn.addEventListener('click', () => {
+            donateModal.style.display = 'block';
+        });
+        
+        sponsorBtn.addEventListener('click', () => {
+            donateModal.style.display = 'block';
+        });
+        
+        closeModal.addEventListener('click', () => {
+            donateModal.style.display = 'none';
+        });
+        
+        window.addEventListener('click', (e) => {
+            if (e.target === donateModal) {
+                donateModal.style.display = 'none';
+            }
+        });
+        
+        // Donation options selection
+        const donateOptions = document.querySelectorAll('.donate-option');
+        const amountOptions = document.querySelectorAll('.amount-option');
+        
+        donateOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                donateOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+            });
+        });
+        
+        amountOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                amountOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+            });
+        });
+        
+        // Form submission (placeholder functionality)
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>					
